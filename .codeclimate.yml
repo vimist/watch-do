@@ -4,7 +4,7 @@ engines:
     enabled: true
     config:
       languages:
-      - php
+      - python
   fixme:
     enabled: true
   radon:
