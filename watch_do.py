@@ -14,12 +14,12 @@ from watch_do.methods.hash import Hash
 cli_parser = ArgumentParser()
 cli_parser.add_argument(
     '-w', '--watch', dest='files', metavar='FILE', action='append',
-    required=True, help='Files to watch for changes. This can be specified ' +
-    'multiple times to watch multiple files. Globbing is also supported, ' +
+    required=True, help='Files to watch for changes. This can be specified '
+    'multiple times to watch multiple files. Globbing is also supported, '
     'directories are ignored')
 cli_parser.add_argument(
     '-m', '--method', type=string_to_method_class, action='store', default=Hash,
-    metavar='{'+(', '.join(list_methods()))+'}', help='The method to use ' +
+    metavar='{'+(', '.join(list_methods()))+'}', help='The method to use '
     'when checking for file changes')
 cli_parser.add_argument(
     '-i', '--interval', type=int, action='store', default=2,
@@ -33,14 +33,14 @@ cli_parser.add_argument(
     '--no-header', dest='header', action='store_false', default=True,
     help='Don\'t show the header and footer')
 cli_parser.add_argument('--no-first', dest='first', action='store_false',
-    default=True, help='Run COMMAND(s) straight away, before any files ' +
+    default=True, help='Run COMMAND(s) straight away, before any files '
     'have changed')
 cli_parser.add_argument('-c', '--command', dest='commands',
     metavar='COMMAND', action='append', required=True, 
-    help='The command to execute if the file specified meets the methods ' +
-    'change criteria. This can be specified multiple times to run ' +
-    'multiple commands. Commands are run in the order specified. All ' +
-    'previous commands must run successfully for the next command to be ' +
+    help='The command to execute if the file specified meets the methods '
+    'change criteria. This can be specified multiple times to run '
+    'multiple commands. Commands are run in the order specified. All '
+    'previous commands must run successfully for the next command to be '
     'executed')
 
 args = cli_parser.parse_args()

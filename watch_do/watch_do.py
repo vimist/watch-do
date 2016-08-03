@@ -86,8 +86,8 @@ class WatchDo:
         """
         Build the footer ready for output
         """
-        footer = ('\nTriggered from change in "{file_name}" at {date}' +
-                 '\nTook {time} seconds to run command{plural}')
+        footer = ('\nTriggered from change in "{file_name}" at {date}'
+                  '\nTook {time} seconds to run command{plural}')
         footer = footer.format(
                 file_name=file_name,
                 date=time.strftime('%H:%M:%S'),
