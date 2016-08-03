@@ -100,24 +100,24 @@ class TestWatchDo(unittest.TestCase):
     def test_start(self):
         pass
 
-    @patch('sys.stdout')
-    @patch('subprocess.run')
-    def test_run_commands(self, subprocess_run, sys_stdout):
-        subprocess_run.side_effect = [
-            subprocess.CompletedProcess('echo "Hello"', returncode=0),
-            subprocess.CompletedProcess('echo "Error"', returncode=1),
-            subprocess.CompletedProcess('echo "Third"', returncode=0)
+    @patch('os.system')
+    def test_run_commands(self, os_system):
+        os_system.side_effect = [
+            (0 << 8) | 10,  # 0 exit code, 10 signal number
+            (1 << 8) | 55,  # 1 exit code, 55 signal number
+            (0 << 8) | 100  # 0 exit code, 100 signal number
         ]
 
-        self.assertFalse(self.watch_do._run_commands(
-            ['echo "Hello"', 'echo "Error"', 'echo "Third"'],
-        ), 'didn\'t error out on second command')
+        self.assertFalse(
+            self.watch_do._run_commands(
+                ['echo "Hello"', 'echo "Error"', 'echo "Third"']),
+            'didn\'t error out on second command')
 
-        subprocess_run.side_effect = [
-            subprocess.CompletedProcess('echo "Hello"', returncode=0),
-            subprocess.CompletedProcess('echo "Second"', returncode=0)
+        os_system.side_effect = [
+            (0 << 8) | 10,  # 0 exit code, 10 signal number
+            (0 << 8) | 55,  # 0 exit code, 55 signal number
         ]
 
-        self.assertTrue(self.watch_do._run_commands(
-            ['echo "Hello"', 'echo "Second"'],
-        ), 'didn\'t complete successfully')
+        self.assertTrue(
+            self.watch_do._run_commands(['echo "Hello"', 'echo "Second"']),
+            'didn\'t complete successfully')
