@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/vimist/watch-do.svg?branch=master)](https://travis-ci.org/vimist/watch-do)
+[![Code Climate](https://codeclimate.com/github/vimist/watch-do/badges/gpa.svg)](https://codeclimate.com/github/vimist/watch-do)
 
 WatchDo
 =======
