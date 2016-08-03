@@ -14,5 +14,3 @@ engines:
 ratings:
   paths:
   - "**.py"
-exclude_paths:
-- tests/
