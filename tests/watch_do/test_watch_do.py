@@ -7,6 +7,7 @@ from unittest.mock import patch
 from watch_do.watch_do import WatchDo, NoFilesError
 from watch_do.methods.hash import Hash
 
+
 class TestWatchDo(unittest.TestCase):
     @patch('os.path.isfile')
     @patch('glob.glob')
@@ -25,15 +26,13 @@ class TestWatchDo(unittest.TestCase):
         self.assertEqual(self.watch_do._interval, 2, 'interval not stored')
         self.assertTrue(self.watch_do._clear, 'clear value not stored')
 
-        self.assertIn('echo "Command 1"', self.watch_do._commands,
-            'command1 not stored')
-        self.assertIn('echo "Command 2"', self.watch_do._commands,
-            'command2 not stored')
+        self.assertIn(
+            'echo "Command 1"', self.watch_do._commands, 'command1 not stored')
+        self.assertIn(
+            'echo "Command 2"', self.watch_do._commands, 'command2 not stored')
 
-        self.assertIn('file1.py', self.watch_do._files,
-            'file1.py not stored')
-        self.assertIn('file2.py', self.watch_do._files,
-            'file2.py not stored')
+        self.assertIn('file1.py', self.watch_do._files, 'file1.py not stored')
+        self.assertIn('file2.py', self.watch_do._files, 'file2.py not stored')
 
         with patch('glob.glob') as glob_glob:
             glob_glob.return_value = []
@@ -42,25 +41,27 @@ class TestWatchDo(unittest.TestCase):
                 watch_do = WatchDo(['*'], Hash, 2, True, True, True, ['date'])
 
     def test_expand_globbing(self):
-        self.assertIn('file1.py', self.watch_do._files,
-            'file1.py not in files list')
-        self.assertIn('file2.py', self.watch_do._files,
-            'file2.py not in files list')
-        self.assertNotIn('directory.py', self.watch_do._files,
-            'directory.py in files list')
+        self.assertIn(
+            'file1.py', self.watch_do._files, 'file1.py not in files list')
+        self.assertIn(
+            'file2.py', self.watch_do._files, 'file2.py not in files list')
+        self.assertNotIn(
+            'directory.py', self.watch_do._files, 'directory.py in files list')
 
     @patch('os.system')
     def test_clear_terminal(self, os_system):
         with patch.object(os, 'name', 'posix'):
             self.watch_do._clear_terminal()
 
-            self.assertEqual(os_system.call_args[0][0], 'clear',
+            self.assertEqual(
+                os_system.call_args[0][0], 'clear',
                 'incorrect command called to clear screen for posix')
 
         with patch.object(os, 'name', 'nt'):
             self.watch_do._clear_terminal()
 
-            self.assertEqual(os_system.call_args[0][0], 'cls',
+            self.assertEqual(
+                os_system.call_args[0][0], 'cls',
                 'incorrect command called to clear screen for nt')
 
     @patch('builtins.open')
@@ -72,22 +73,27 @@ class TestWatchDo(unittest.TestCase):
 
         watchers = self.watch_do._set_up_watchers(['file1', 'file2'])
 
-        self.assertEqual(len(watchers), 2,
+        self.assertEqual(
+            len(watchers), 2,
             'incorrect number of watchers returned')
-        self.assertIsInstance(watchers[0], Hash,
+        self.assertIsInstance(
+            watchers[0], Hash,
             'incorrect watcher type returned')
-        self.assertIsInstance(watchers[1], Hash,
+        self.assertIsInstance(
+            watchers[1], Hash,
             'incorrect watcher type returned')
 
     def test_build_header(self):
-        self.assertIn('2 files', self.watch_do._build_header(),
+        self.assertIn(
+            '2 files', self.watch_do._build_header(),
             'incorrect number of files mentioned')
 
     def test_build_footer(self):
-        self.assertIn('"file_name"',
-            self.watch_do._build_footer('file_name', 1.234),
+        self.assertIn(
+            '"file_name"', self.watch_do._build_footer('file_name', 1.234),
             'incorrect number of files mentioned in header')
-        self.assertIn('1.234',
+        self.assertIn(
+            '1.234',
             self.watch_do._build_footer('file_name', 1.234),
             'incorrect run time mentioned')
 

@@ -9,10 +9,12 @@ from watch_do.argument_helper import (
 )
 import watch_do.methods.hash
 
+
 class TestArgumentHelper(unittest.TestCase):
     def test_string_to_method_class(self):
-        with self.assertRaises(argparse.ArgumentTypeError,
-             msg='exception not raised for invalid method type'):
+        with self.assertRaises(
+                argparse.ArgumentTypeError,
+                msg='exception not raised for invalid method type'):
             string_to_method_class('invalid_method_type')
 
         cls = string_to_method_class('hash')
@@ -44,7 +46,7 @@ class TestArgumentHelper(unittest.TestCase):
         self.assertFalse(string_to_bool('no'), 'not recognising no')
         self.assertFalse(string_to_bool('n'), 'not recognising n')
 
-        with self.assertRaises(argparse.ArgumentTypeError,
-             msg='exception not raised for invalid bool'):
+        with self.assertRaises(
+                argparse.ArgumentTypeError,
+                msg='exception not raised for invalid bool'):
             string_to_bool('neither')
-

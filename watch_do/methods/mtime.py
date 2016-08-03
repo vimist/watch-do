@@ -2,6 +2,7 @@ import os
 
 from watch_do.methods.base_method import BaseMethod
 
+
 class Mtime(BaseMethod):
     def _detect(self):
         """
@@ -14,4 +15,3 @@ class Mtime(BaseMethod):
             return False
 
         return mtime
-

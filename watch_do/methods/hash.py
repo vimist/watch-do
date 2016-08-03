@@ -2,6 +2,7 @@ import hashlib
 
 from watch_do.methods.base_method import BaseMethod
 
+
 class Hash(BaseMethod):
     def _detect(self):
         """
@@ -20,4 +21,3 @@ class Hash(BaseMethod):
             return False
 
         return md5.digest()
-
