@@ -1,7 +1,6 @@
 import os
 import sys
 import time
-import subprocess
 import glob
 
 
@@ -77,8 +76,7 @@ class WatchDo:
         header = 'Watching {number} file{plural} for changes\n'
         header = header.format(
             number=len(self._files),
-            plural=('s' if len(self._files) > 1 else '')
-        )
+            plural=('s' if len(self._files) > 1 else ''))
 
         return header
 
@@ -92,8 +90,7 @@ class WatchDo:
                 file_name=file_name,
                 date=time.strftime('%H:%M:%S'),
                 time=round(time_to_run, 3),
-                plural=('s' if len(self._commands) > 1 else '')
-        )
+                plural=('s' if len(self._commands) > 1 else ''))
 
         return footer
 
@@ -151,10 +148,11 @@ class WatchDo:
                  successfully executed
         """
         for command in commands:
-            result = subprocess.run(command, shell=True)
+            result = os.system(command)
+            return_code = result >> 8  # Highest 8 bits are exit code
             print()
 
-            if result.returncode != 0:
+            if return_code != 0:
                 return False
 
         return True
