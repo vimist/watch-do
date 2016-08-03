@@ -11,7 +11,9 @@ Usage
 Run unit tests for your project whenever a change in any `.py` file is
 detected (using the default hash based method):
 
-    $ ./watch_do.py -w '**/*.py' -c './tests/run_tests.py'
+```bash
+$ ./watch_do.py -w '**/*.py' -c './tests/run_tests.py'
+```
 
     Watching 16 files for changes
 
@@ -31,55 +33,61 @@ Extensible
 You define what constitutes a changed file. Just add a new file in
 `./watch_do/methods`:
 
-    touch ./watch_do/methods/mtime.py
+```bash
+touch './watch_do/methods/mtime.py'
+```
 
 Create a class with the title cased version of the file name and
 implement your detection method (must be called `_detect`):
 
-    import os
+```python
+import os
 
-    from watch_do.methods.base_method import BaseMethod
+from watch_do.methods.base_method import BaseMethod
 
-    class Mtime(BaseMethod):
-        def _detect(self):
-            """
-            Detects a change in a file by it's modification time
-            """
-            mtime = False
-            try:
-                mtime = os.stat(self.file_name).st_mtime
-            except FileNotFoundError:
-                return False
+class Mtime(BaseMethod):
+    def _detect(self):
+        """
+        Detects a change in a file by it's modification time
+        """
+        mtime = False
+        try:
+            mtime = os.stat(self.file_name).st_mtime
+        except FileNotFoundError:
+            return False
 
-            return mtime
+        return mtime
+```
 
 Create your tests in `./tests/watch_do/methods/test_mtime.py`:
 
-    import unittest
-    from unittest.mock import Mock, patch
+```python
+import unittest
+from unittest.mock import Mock, patch
 
-    from watch_do.methods.mtime import Mtime
+from watch_do.methods.mtime import Mtime
 
-    class TestMtime(unittest.TestCase):
-        @patch('os.stat')
-        def setUp(self, os_stat):
-            os_stat.return_value = Mock(st_mtime=123.456)
+class TestMtime(unittest.TestCase):
+    @patch('os.stat')
+    def setUp(self, os_stat):
+        os_stat.return_value = Mock(st_mtime=123.456)
 
-            self.mtime = Mtime('file_name')
+        self.mtime = Mtime('file_name')
 
-        def test_initial_detect(self):
-            self.assertEqual(self.mtime._detect_value, 123.456,
-                             'invalid _detect_value')
+    def test_initial_detect(self):
+        self.assertEqual(self.mtime._detect_value, 123.456,
+                         'invalid _detect_value')
 
-        def test_detect(self):
-            with patch('os.stat') as os_stat:
-                os_stat.return_value = Mock(st_mtime=456.789)
+    def test_detect(self):
+        with patch('os.stat') as os_stat:
+            os_stat.return_value = Mock(st_mtime=456.789)
 
-                self.assertNotEqual(self.mtime._detect_value,
-                    self.mtime._detect(),
-                    'content change not detected')
+            self.assertNotEqual(self.mtime._detect_value,
+                self.mtime._detect(),
+                'content change not detected')
 
-            self.assertFalse(self.mtime._detect(),
-                'non existant file not detected')
+        self.assertFalse(self.mtime._detect(),
+            'non existant file not detected')
+```
 
 Now you can use it by specifying the `-m mtime` on the command line!
