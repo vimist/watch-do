@@ -6,13 +6,23 @@ WatchDo
 A command line tool to watch files and run arbitrary commands when they
 change.
 
+Installation
+------------
+Can be installed using the following commands:
+
+```bash
+$ git clone https://github.com/vimist/watch-do.git ./watch-do
+$ cd ./watch-do
+$ sudo pip install .
+```
+
 Usage
 -----
 Run unit tests for your project whenever a change in any `.py` file is
 detected (using the default hash based method):
 
 ```bash
-$ ./watch_do.py -w '**/*.py' -c './tests/run_tests.py'
+$ watch_do -w '**/*.py' -c './tests/run_tests.py'
 ```
 
     Watching 16 files for changes
