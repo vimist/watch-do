@@ -1,11 +1,9 @@
-import time
 from argparse import ArgumentParser
 
 from watch_do.watch_do import WatchDo, NoFilesError
 from watch_do.argument_helper import (
     string_to_method_class,
-    list_methods,
-    string_to_bool
+    list_methods
 )
 from watch_do.methods.hash import Hash
 
