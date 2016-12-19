@@ -19,7 +19,7 @@ setup(
     packages=find_packages(exclude=['tests*']),
     entry_points={
         'console_scripts': [
-            'watch-do=watch_do.cli_entry_point'
+            'watch-do=watch_do.cli_entry_point:main'
         ]
     }
 )
