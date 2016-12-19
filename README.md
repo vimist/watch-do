@@ -22,7 +22,7 @@ Run unit tests for your project whenever a change in any `.py` file is
 detected (using the default hash based method):
 
 ```bash
-$ watch_do -w '**/*.py' -c './tests/run_tests.py'
+$ watch-do -w '**/*.py' -c './tests/run_tests.py'
 ```
 
     Watching 16 files for changes
