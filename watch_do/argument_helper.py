@@ -5,7 +5,7 @@ import os
 
 
 def list_methods():
-    files = os.listdir('./watch_do/methods/')
+    files = os.listdir(os.path.join(os.path.dirname(__file__), 'methods/'))
     methods = []
     for f in files:
         if f.endswith('.py') and f not in ['base_method.py']:
