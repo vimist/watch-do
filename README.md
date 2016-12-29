@@ -44,7 +44,7 @@ You define what constitutes a changed file. Just add a new file in
 `./watch_do/methods`:
 
 ```bash
-touch './watch_do/methods/mtime.py'
+$ touch './watch_do/methods/mtime.py'
 ```
 
 Create a class with the title cased version of the file name and
