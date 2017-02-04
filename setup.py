@@ -1,8 +1,8 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name='watch-do',
-    version='0.1.0',
+    version='1.0.0',
     author='Vimist',
     description='Watch a group of files for changes and then run commands',
     url='https://github.com/vimist/watch-do',
@@ -16,10 +16,10 @@ setup(
         'Topic :: Software Development',
         'Topic :: System'
     ],
-    packages=find_packages(exclude=['tests*']),
+    packages=['watch_do'],
     entry_points={
         'console_scripts': [
-            'watch-do=watch_do.cli_entry_point:main'
+            'watch-do=watch_do.cli:main'
         ]
     }
 )
