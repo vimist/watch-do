@@ -1,3 +1,10 @@
+"""Watch Do
+
+A set of classes (and more specifically a command line tool that implements
+these classes) that performs change detection in files and performs an action
+as a result.
+"""
+
 from setuptools import setup
 
 setup(
