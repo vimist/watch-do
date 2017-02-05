@@ -2,6 +2,9 @@ tests_dir = tests
 documentation_dir = docs
 package_dir = watch_do
 
+.PHONY: all
+all: test lint docs
+
 .PHONY: docs
 docs:
 	@echo "Building documentation"
