@@ -18,7 +18,7 @@ class TestWatcher(TestCase):
         self.temporary_file = tempfile.NamedTemporaryFile('r')
         self.watcher = Watcher(self.temporary_file.name)
 
-    def test_init(self):
+    def test___init__(self):
         """Check the temporary file's name has been stored correctly.
         """
         self.assertEqual(self.watcher.file_name, self.temporary_file.name)
