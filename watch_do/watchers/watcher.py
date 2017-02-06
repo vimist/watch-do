@@ -13,6 +13,8 @@ class Watcher:
         self._file_name = file_name
         self._last_value = None
 
+        self._first_call_to_has_changed = True
+
     @property
     def file_name(self):
         """Get the file name that this watcher is watching.
@@ -33,6 +35,12 @@ class Watcher:
         changed = True if value != self._last_value else False
 
         self._last_value = value
+
+        # Always return False on the first call to `has_changed`
+        if self._first_call_to_has_changed:
+            self._first_call_to_has_changed = False
+            changed = False
+
         return changed
 
     def _get_value(self):

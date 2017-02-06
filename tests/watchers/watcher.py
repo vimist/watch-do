@@ -27,10 +27,15 @@ class TestWatcher(TestCase):
         """Check the method recognises changes in values.
         """
         # Patch the _get_value to return 'Hello'
-        with patch('watch_do.watchers.Watcher._get_value') as get_value:
-            get_value.return_value = 'Hello'
+        with patch('watch_do.watchers.Watcher._get_value') as _get_value:
+            _get_value.return_value = 'Hello'
 
+            # The initial call to `has_changed` should be False
+            self.assertFalse(self.watcher.has_changed())
+
+            _get_value.return_value = 'World'
             self.assertTrue(self.watcher.has_changed())
+
             # Nothing changed, so the result should be False now
             self.assertFalse(self.watcher.has_changed())
 
