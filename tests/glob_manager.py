@@ -6,15 +6,10 @@ import tempfile
 
 from unittest import TestCase
 
+from tests.helper_functions import set_up_test_files
+
 from watch_do import GlobManager
 
-def create_file(file_name):
-    """Create a file.
-
-    Parameters:
-        file_name (str): The file to create.
-    """
-    open(file_name, 'a').close()
 
 class TestGlobManager(TestCase):
     """Test the `GlobManager` class.
@@ -25,24 +20,7 @@ class TestGlobManager(TestCase):
         """
         # Create a temporary directory with a few files in
         self.temp_dir = tempfile.TemporaryDirectory()
-
-        create_file(os.path.join(self.temp_dir.name, 'dave.txt'))
-        create_file(os.path.join(self.temp_dir.name, 'bob.py'))
-        create_file(os.path.join(self.temp_dir.name, 'jim.py.txt'))
-        create_file(os.path.join(self.temp_dir.name, 'fred.txt.py'))
-        create_file(os.path.join(self.temp_dir.name, 'rob.txt'))
-        create_file(os.path.join(self.temp_dir.name, 'geoff.py'))
-
-        # Create a sub-directory with some files in
-        self.sub_dir = os.path.join(self.temp_dir.name, 'my_directory')
-        os.makedirs(self.sub_dir)
-
-        create_file(os.path.join(self.sub_dir, 'rat.py.txt'))
-        create_file(os.path.join(self.sub_dir, 'cow.txt'))
-        create_file(os.path.join(self.sub_dir, 'dog.py'))
-        create_file(os.path.join(self.sub_dir, 'sheep.py'))
-        create_file(os.path.join(self.sub_dir, 'cat.txt'))
-        create_file(os.path.join(self.sub_dir, 'mouse.txt.py'))
+        set_up_test_files(self.temp_dir.name)
 
         # Change to the temporary directory
         self.cwd = os.getcwd()
@@ -64,32 +42,19 @@ class TestGlobManager(TestCase):
         self.assertEqual(
             glob_manager.get_files(),
             {
-                'bob.py',
-                'dave.txt',
-                'fred.txt.py',
-                'geoff.py',
-                'jim.py.txt',
+                'bob.py', 'dave.txt', 'fred.txt.py', 'geoff.py', 'jim.py.txt',
                 'rob.txt'
             })
 
         glob_manager = GlobManager(['*.py'])
         self.assertEqual(
-            glob_manager.get_files(),
-            {
-                'bob.py',
-                'fred.txt.py',
-                'geoff.py'
-            })
+            glob_manager.get_files(), {'bob.py', 'fred.txt.py', 'geoff.py'})
 
         glob_manager = GlobManager(['*.py', '*.txt'])
         self.assertEqual(
             glob_manager.get_files(),
             {
-                'bob.py',
-                'dave.txt',
-                'fred.txt.py',
-                'geoff.py',
-                'jim.py.txt',
+                'bob.py', 'dave.txt', 'fred.txt.py', 'geoff.py', 'jim.py.txt',
                 'rob.txt'
             })
 
@@ -97,9 +62,15 @@ class TestGlobManager(TestCase):
         self.assertEqual(
             glob_manager.get_files(),
             {
-                'my_directory/dog.py',
-                'my_directory/mouse.txt.py',
-                'my_directory/sheep.py'
+                'bob.py',
+                'fred.txt.py',
+                'geoff.py',
+                'animals/dog.py',
+                'animals/mouse.txt.py',
+                'animals/sheep.py',
+                'animals/vehicles/bus.py',
+                'animals/vehicles/aeroplane.txt.py',
+                'animals/vehicles/tractor.py'
             })
 
         glob_manager = GlobManager(['bob.py'])

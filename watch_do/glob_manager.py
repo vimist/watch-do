@@ -29,7 +29,7 @@ class GlobManager:
         """
         files = []
         for glob_pattern in self.globs:
-            files = files + glob.glob(glob_pattern)
+            files = files + glob.glob(glob_pattern, recursive=True)
 
             for file_name in files:
                 if not os.path.isfile(file_name):
