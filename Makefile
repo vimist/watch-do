@@ -24,6 +24,7 @@ lint: lint-package lint-tests
 lint-package:
 	@echo "Linting the package code"
 	@pylint \
+		--reports no \
 		$(package_dir) \
 		setup.py
 
@@ -31,5 +32,6 @@ lint-package:
 lint-tests:
 	@echo "Linting the test code"
 	@pylint \
+		--reports no \
 		--disable protected-access \
 		$(tests_dir)
