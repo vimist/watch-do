@@ -10,8 +10,9 @@ class WatcherManager:
         """Initialise the `WatcherManager` properties.
 
         Properties:
-            watcher (...): A reference to a subclass of `Watcher` that will be
-                           used watch the files provided by the `GlobManager`.
+            watcher (Watcher): A reference to a subclass of `Watcher` that
+                               will be used watch the files provided by the
+                               `GlobManager`.
             glob_manager (GlobManager): The glob manager responsible for
                                         providing a list of files.
             reglob (bool): A boolean value indicating whether to re-evaluate
@@ -31,26 +32,50 @@ class WatcherManager:
     @property
     def watcher(self):
         """Get a reference to the watcher class that is being used.
+
+        Returns:
+            Watcher: A reference to the watcher class that is being used.
         """
         return self._watcher
 
     @property
     def glob_manager(self):
         """Get the `GlobManager` instance that's providing file names to watch.
+
+        Returns:
+            GlobManager: The instance of the `GlobManager` that was passed in.
         """
         return self._glob_manager
 
     @property
     def reglob(self):
         """Get the value determining whether we are re-evaluating file globs.
+
+        Returns:
+            bool: A boolean value indicating whether we are re-evaluating file
+                  globs.
         """
         return self._reglob
 
     @property
     def changed_on_remove(self):
         """Get the value determining whether removed files count as a change.
+
+        Returns:
+            bool: A boolean value indicating if removed files count as a
+                  change.
         """
         return self._changed_on_remove
+
+    @property
+    def files(self):
+        """Get the set of files that are being watched.
+
+        Returns:
+            set: A set of file names (relative to the current cirectory)
+                  that are being watched.
+        """
+        return self._files
 
     def get_changed_files(self):
         """Get a `set` of changed files.

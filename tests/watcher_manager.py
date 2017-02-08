@@ -41,6 +41,7 @@ class TestWatcherManager(TestCase):
         self.assertIsInstance(self.watcher_manager.glob_manager, GlobManager)
         self.assertTrue(self.watcher_manager.reglob)
         self.assertTrue(self.watcher_manager.changed_on_remove)
+        self.assertEqual(self.watcher_manager.files, set())
 
     def test_get_changed_files(self):
         """Chack that new, removed and changed files are being reported.
