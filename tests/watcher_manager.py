@@ -1,3 +1,6 @@
+"""Test the `WatcherManager` class.
+"""
+
 from unittest import TestCase
 from unittest.mock import patch
 import tempfile
@@ -48,6 +51,17 @@ class TestWatcherManager(TestCase):
         """
         # No changed files to start with
         self.assertEqual(self.watcher_manager.get_changed_files(), set(''))
+
+        # Check we have successfully globbed some files
+        self.assertEqual(self.watcher_manager.files,
+                         {
+                             'dave.txt',
+                             'bob.py',
+                             'jim.py.txt',
+                             'fred.txt.py',
+                             'rob.txt',
+                             'geoff.py'
+                         })
 
         # New file
         create_file('something_random.jpeg')
