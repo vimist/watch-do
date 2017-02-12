@@ -2,7 +2,6 @@
 """
 
 from unittest import TestCase
-from unittest.mock import patch
 import tempfile
 import os
 
@@ -17,6 +16,8 @@ from watch_do.watchers.hash import MD5
 
 
 class TestWatcherManager(TestCase):
+    """Test the `WatcherManager` class.
+    """
     def setUp(self):
         """Create some temporary files for the tests to work with.
         """
