@@ -3,6 +3,8 @@
 
 from importlib import import_module
 
+from .exceptions import UnknownDoer
+
 
 class DoerManager:
     """This class manages the doers and commands.
@@ -80,8 +82,11 @@ class DoerManager:
                 command_part = command[token_position+len(token):]
 
                 # Dynamically load the doer
-                doers_package = import_module('.doers', 'watch_do')
-                doer = getattr(doers_package, doer_name)
+                try:
+                    doers_package = import_module('.doers', 'watch_do')
+                    doer = getattr(doers_package, doer_name)
+                except AttributeError:
+                    raise UnknownDoer(doer_name)
 
                 # Create the doer and append it to our list
                 doers.append(doer(command_part))

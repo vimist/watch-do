@@ -2,6 +2,7 @@ from unittest import TestCase
 
 from watch_do.doers import Shell
 from watch_do import DoerManager
+from watch_do.exceptions import UnknownDoer
 
 
 class TestDoerManager(TestCase):
@@ -32,7 +33,7 @@ class TestDoerManager(TestCase):
         self.assertIsInstance(self.doer_manager.doers[2], Shell)
         self.assertEqual(self.doer_manager.doers[2].command, 'echo "Bye"')
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(UnknownDoer):
             DoerManager(['non existant::something'], Shell)
 
     def test_run_doers(self):
