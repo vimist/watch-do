@@ -7,14 +7,14 @@ class Doer:
     This class enables child classes to focus on performing their action rather
     than concerning themselves with how to present their action to the user.
     """
-    def __init__(self, file_name):
-        self._file_name = file_name
+    def __init__(self, command):
+        self._command = command
 
     @property
-    def file_name(self):
-        """Get the file name that triggered this doer.
+    def command(self):
+        """Get the command this doer is using.
         """
-        return self._file_name
+        return self._command
 
     @staticmethod
     def _interpolate_file_name(string, file_name):
@@ -55,15 +55,14 @@ class Doer:
 
         return string
 
-    def run(self, parameter):
+    def run(self, file_name):
         """This is the main method that all child doers should implement.
 
         This method should be overridden in the child class to perform the
         action.
 
         Parameters:
-            parameter (str): An arbitrary parameter that can be specified in
-                             order to pass extra information to this class.
+            file_name (str): The file name for which to run this doer against.
 
         Returns:
             str: A string, containing the status/output of the action.

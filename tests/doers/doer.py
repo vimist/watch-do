@@ -13,12 +13,12 @@ class TestDoer(TestCase):
     def setUp(self):
         """Create an instance of the doer with a simple command.
         """
-        self.shell = Doer('/some/random/file')
+        self.shell = Doer('shell::echo "%f changed."')
 
     def test___init__(self):
         """Check that the properties are being correctly initialised.
         """
-        self.assertEqual(self.shell.file_name, '/some/random/file')
+        self.assertEqual(self.shell.command, 'shell::echo "%f changed."')
 
     def test__interpolate_file_name(self):
         """Check that the file name gets interpolated into the command.

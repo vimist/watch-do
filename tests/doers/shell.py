@@ -10,28 +10,26 @@ class TestShell(TestCase):
     """Test the `Shell` doer class
     """
 
-    def setUp(self):
-        """Create an instance of the doer with a simple command
-        """
-        self.shell = Shell('/some/random/file')
-
     def test__init__(self):
         """Check the properties have been set correctly
         """
-        self.assertEqual(self.shell.file_name, '/some/random/file')
+        shell = Shell('echo "This file changed: %f"')
+        self.assertEqual(shell.command, 'echo "This file changed: %f"')
 
     def test_run(self):
         """Check that the `run` method produces the correct output
         """
+        shell = Shell('echo -n "This file changed: %f"')
         self.assertEqual(
-            self.shell.run('echo -n "This file changed: %f"'),
+            shell.run('/some/random/file'),
             'This file changed: /some/random/file')
 
+        shell = Shell('echo -n "Hello "; echo -n "World" >&2; echo -n "...";')
         self.assertEqual(
-            self.shell.run(
-                'echo -n "Hello "; echo -n "World" >&2; echo -n "...";'),
+            shell.run(''),
             'Hello World...')
 
+        shell = Shell('echo -n "Hello"; exit 1')
         self.assertEqual(
-            self.shell.run('echo -n "Hello"; exit 1'),
+            shell.run(''),
             'Hello\nCommand failed to run, exited with error code 1')
