@@ -1,7 +1,6 @@
 """A collection of functions that are helpful across the tests.
 """
 
-import tempfile
 import os
 from os.path import join
 
@@ -16,8 +15,8 @@ def create_file(file_name, content=''):
         file_name (str): The file to create.
         content (str): The string to write to the file.
     """
-    with open(file_name, 'w') as fh:
-        fh.write(content)
+    with open(file_name, 'w') as file_handle:
+        file_handle.write(content)
 
 
 def remove_file(file_name):
