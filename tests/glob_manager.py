@@ -39,7 +39,8 @@ class TestGlobManager(TestCase):
         self.assertCountEqual(glob_manager.last_files, set())
 
         glob_manager.get_files()
-        self.assertCountEqual(glob_manager.last_files,
+        self.assertCountEqual(
+            glob_manager.last_files,
             {
                 'bob.py', 'dave.txt', 'fred.txt.py', 'geoff.py', 'jim.py.txt',
                 'rob.txt'
