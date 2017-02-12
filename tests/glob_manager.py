@@ -32,6 +32,19 @@ class TestGlobManager(TestCase):
         self.temp_dir.cleanup()
         os.chdir(self.cwd)
 
+    def test_last_files(self):
+        """Test that the `last_files` property is being correctly maintained.
+        """
+        glob_manager = GlobManager(['*'])
+        self.assertCountEqual(glob_manager.last_files, set())
+
+        glob_manager.get_files()
+        self.assertCountEqual(glob_manager.last_files,
+            {
+                'bob.py', 'dave.txt', 'fred.txt.py', 'geoff.py', 'jim.py.txt',
+                'rob.txt'
+            })
+
     def test_get_files(self):
         """Check that globbing is working as we expect it to.
 
@@ -39,7 +52,7 @@ class TestGlobManager(TestCase):
         we're getting what we expect to back.
         """
         glob_manager = GlobManager(['*'])
-        self.assertEqual(
+        self.assertCountEqual(
             glob_manager.get_files(),
             {
                 'bob.py', 'dave.txt', 'fred.txt.py', 'geoff.py', 'jim.py.txt',
@@ -47,11 +60,11 @@ class TestGlobManager(TestCase):
             })
 
         glob_manager = GlobManager(['*.py'])
-        self.assertEqual(
+        self.assertCountEqual(
             glob_manager.get_files(), {'bob.py', 'fred.txt.py', 'geoff.py'})
 
         glob_manager = GlobManager(['*.py', '*.txt'])
-        self.assertEqual(
+        self.assertCountEqual(
             glob_manager.get_files(),
             {
                 'bob.py', 'dave.txt', 'fred.txt.py', 'geoff.py', 'jim.py.txt',
@@ -59,7 +72,7 @@ class TestGlobManager(TestCase):
             })
 
         glob_manager = GlobManager(['**/*.py'])
-        self.assertEqual(
+        self.assertCountEqual(
             glob_manager.get_files(),
             {
                 'bob.py',
@@ -74,7 +87,7 @@ class TestGlobManager(TestCase):
             })
 
         glob_manager = GlobManager(['bob.py'])
-        self.assertEqual(glob_manager.get_files(), {'bob.py'})
+        self.assertCountEqual(glob_manager.get_files(), {'bob.py'})
 
         glob_manager = GlobManager(['bob.py', 'bob.py'])
-        self.assertEqual(glob_manager.get_files(), {'bob.py'})
+        self.assertCountEqual(glob_manager.get_files(), {'bob.py'})

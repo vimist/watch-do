@@ -11,6 +11,7 @@ class GlobManager:
 
     def __init__(self, globs):
         self._globs = globs
+        self._last_files = set()
 
     @property
     def globs(self):
@@ -21,19 +22,28 @@ class GlobManager:
         """
         return self._globs
 
+    @property
+    def last_files(self):
+        """Get the last files that were returned by the `get_files` method.
+
+        Returns:
+            set: A set of files last returned by the `get_files` method.
+        """
+        return self._last_files
+
     def get_files(self):
         """Expand the globs and get a list of matching files.
 
         Returns:
             list: A list of strings containing the matching files.
         """
-        files = []
+        files = set()
         for glob_pattern in self.globs:
-            files = files + glob.glob(glob_pattern, recursive=True)
+            items = glob.glob(glob_pattern, recursive=True)
 
-            for file_name in files:
-                if not os.path.isfile(file_name):
-                    files.remove(file_name)
+            for item in items:
+                if os.path.isfile(item):
+                    files.add(item)
 
-        files.sort()
-        return set(files)
+        self._last_files = files
+        return files
