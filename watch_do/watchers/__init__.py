@@ -7,8 +7,10 @@ the `Hash` and `ModifiedTime` classes.
 
 from .watcher import Watcher
 from .hash import MD5
+from .stat import ModificationTime
 
 __all__ = [
     'Watcher',
-    'MD5'
+    'MD5',
+    'ModificationTime'
 ]

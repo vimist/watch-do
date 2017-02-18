@@ -16,7 +16,6 @@ class TestMD5(TestCase):
         """
         # No buffering, all data is written straight to the file
         self.temporary_file = tempfile.NamedTemporaryFile(buffering=0)
-        # Set the starting value and seek to the beginning ready for reading
 
         self.md5 = MD5(self.temporary_file.name)
 
