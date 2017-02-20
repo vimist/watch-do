@@ -1,7 +1,11 @@
 """The base `Watcher`.
 """
 
-class Watcher:
+from abc import ABCMeta
+from abc import abstractmethod
+
+
+class Watcher(metaclass=ABCMeta):
     """The base `Watcher` that all other watchers should inherit from.
 
     This class enables child classes to concentrate on the change detection
@@ -43,6 +47,7 @@ class Watcher:
 
         return changed
 
+    @abstractmethod
     def _get_value(self):
         """Get the current value of the watched file.
 
@@ -56,5 +61,4 @@ class Watcher:
             str: A value representing the current state of the object that this
             base class can use to determine if the file has changed.
         """
-        raise NotImplementedError(
-            'The `_get_value` method should be implemented by the child class')
+        pass
