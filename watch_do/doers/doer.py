@@ -1,8 +1,11 @@
 """The base `Doer`.
 """
 
-class Doer:
-    """The base `Doer` that all other doers should inherit from.
+from abc import ABCMeta
+from abc import abstractmethod
+
+
+class Doer(metaclass=ABCMeta):
 
     This class enables child classes to focus on performing their action rather
     than concerning themselves with how to present their action to the user.
@@ -67,5 +70,4 @@ class Doer:
         Returns:
             str: A string, containing the status/output of the action.
         """
-        raise NotImplementedError(
-            'The `run` method should be implemented by the child class')
+        pass

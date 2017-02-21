@@ -6,6 +6,19 @@ from unittest import TestCase
 from watch_do.doers import Doer
 
 
+class FakeDoer(Doer):
+    """A fake doer to test with as we can't directly instantiate the
+    :class:`.Doer` class.
+    """
+    def run(self):
+        """Get the fixed return value of this fake doer.
+
+        Returns:
+            str: Always returns 'Hello' (unless patched)
+        """
+        return 'Hello'
+
+
 class TestDoer(TestCase):
     """Test the base `Doer` class.
     """
@@ -13,7 +26,7 @@ class TestDoer(TestCase):
     def setUp(self):
         """Create an instance of the doer with a simple command.
         """
-        self.shell = Doer('shell::echo "%f changed."')
+        self.shell = FakeDoer('shell::echo "%f changed."')
 
     def test___init__(self):
         """Check that the properties are being correctly initialised.
