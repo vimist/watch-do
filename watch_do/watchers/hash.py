@@ -8,6 +8,9 @@ from . import Watcher
 
 class MD5(Watcher):
     """MD5 hash based change detection.
+
+    This class uses MD5 hashes based on the files contents to enable change
+    detection.
     """
 
     def _get_value(self):

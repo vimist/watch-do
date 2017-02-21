@@ -1,8 +1,8 @@
-"""Watchers are different ways of determining if a file has changed
+"""Watchers implement methods of determining if a file has changed.
 
-These classes all inherit from the base `Watcher` class and implement a method
-of determining if a file has changed. Some of the built in examples of this are
-the `Hash` and `ModifiedTime` classes.
+All watchers inherit from the base :class:`.Watcher` class. This allows the
+derived class to focus on performing the change detection rather than having to
+implement core functionality.
 """
 
 from .watcher import Watcher

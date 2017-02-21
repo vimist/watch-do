@@ -1,7 +1,8 @@
-"""Doers are implementations of common functionality you might want to perform.
+"""Doers implement interfaces that enable the performing of actions.
 
-These classes all inherit from the base `Doer` class and implement a method
-that performs an action. A built in example of this is the `Shell` class.
+All doers inherit from the base :class:`.Doer` class. This allows the derived
+class to focus on actually executing the action rather than having to implement
+core functionality.
 """
 
 from .doer import Doer

@@ -1,27 +1,41 @@
-"""Build the banner text that is used to display metrics.
+"""The :class:`.BannerBuilder` class is responsible for creating the banners
+that are displayed when using the command line interface to Watch Do.
+
+Headers and footers are created in a format defined within this class that make
+use of the metadata that is passed into the :meth:`build_header` and
+:meth:`build_footer` methods.
+
+As an example, the following code would return a header populated with the
+required metadata.
+
+>>> BannerBuilder.build_header(
+...     {'file1', 'file2'}, ModificationTime)
 """
 
 import time
 
 
 class BannerBuilder:
-    """Build the banner text that is used to display metrics.
-
-    The metrics display information about the current state of Watch Do.
+    """This class creates the headers and footers (banners) containing metrics
+    that are used predominantly by the command line interface.
     """
 
     @staticmethod
     def build_header(files, watch_method):
-        """Build the header that can be displayed
+        """Build a header from the provided metadata.
+
+        This interpolates the metadata provided by the parameters into a
+        predefined string that can be used as information to display **before**
+        a change has occurred.
 
         Parameters:
-            files (set): A set containing the files that are
-                         currently being watched.
-            watch_method (Watcher): A reference to the class that is being
-                                    used to watch the files.
+            files (set): A ``set`` containing the files that are currently
+                being watched.
+            watch_method (:class:`.Watcher`): A reference to the class that is
+                being used to watch the files.
 
         Returns:
-            str: A string containing the header.
+            str: A string containing the generated header.
         """
         header = ('Watching {number_of_files} file{plural} for changes using '
                   'the {watch_method} method...\n\n')
@@ -34,19 +48,25 @@ class BannerBuilder:
     @staticmethod
     def build_footer(trigger_time, trigger_cause,
                      doer_run_time, files, watch_method):
-        """Build the header that can be displayed
+        """Build the footer from the provided metadata.
+
+        This interpolates the metadata provided by the parameters into a
+        predefined string that can be used as information to display **after**
+        a change has occurred.
 
         Parameters:
             trigger_time (int): A timestamp of when the doers were triggered.
-            trigger_cause (list): A list of items that caused the doers to run.
+            trigger_cause (list): A ``list`` of items that caused the doers to
+                run. This list is joined with ', ' and the second to last and
+                last item joined with ' and '.
             doer_run_time (double): The duration of time the doers took to run.
-            files (set): A set containing the files that are currently being
-                         watched.
-            watch_method (Watcher): A reference to the class that is being
-                                    used to watch the files.
+            files (set): A ``set`` containing the files that are currently
+                being watched.
+            watch_method (:class:`.Watcher`): A reference to the class that is
+                being used to watch the files.
 
         Returns:
-            str: A string containing the footer.
+            str: A string containing the generated footer.
         """
         if len(trigger_cause) > 1:
             trigger_cause_string = ', '.join(trigger_cause[:-1])

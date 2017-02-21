@@ -1,4 +1,13 @@
-"""The base `Watcher`.
+"""The :class:`.Watcher` base class is responsible for providing the high level
+interface to a watcher, the actual functionality is left to the derived class.
+
+The watchers are typically created and managed by an instance of a
+:class:`.WatcherManager` class.
+
+.. warning::
+    This class cannot be instantiated directly, it is an abstract base class.
+    Only derived classes that inherit from this class and implement
+    :meth:`_get_value` can be instantiated.
 """
 
 from abc import ABCMeta
@@ -6,14 +15,23 @@ from abc import abstractmethod
 
 
 class Watcher(metaclass=ABCMeta):
-    """The base `Watcher` that all other watchers should inherit from.
+    """This is the base :class:`.Watcher` that all other watchers should
+    inherit from.
 
-    This class enables child classes to concentrate on the change detection
-    and to not have to concern themselves about how this is presented to the
-    user.
+    A file name is passed in that will be monitored for changes.
+    
+    .. note::
+        The file state is only checked when the :meth:`has_changed` method is
+        called.
     """
 
     def __init__(self, file_name):
+        """Initialise the :class:`.Watcher`.
+
+        Parameters:
+            file_name (str): The file path that the watcher should detect
+                changes for.
+        """
         self._file_name = file_name
         self._last_value = None
 
@@ -21,15 +39,16 @@ class Watcher(metaclass=ABCMeta):
 
     @property
     def file_name(self):
-        """Get the file name that this watcher is watching.
+        """Get the name and path of the file that this watcher is monitoring.
         """
         return self._file_name
 
     def has_changed(self):
-        """Determine if the file has changed.
+        """Determine if the file has changed since the last call to this
+        method.
 
-        Determine if the file has changed singe the last time this
-        method was called.
+        .. warning::
+            The first call to this method will **always** return False.
 
         Returns:
             bool: A boolean, indicating if the watched file has changed.
@@ -51,11 +70,13 @@ class Watcher(metaclass=ABCMeta):
     def _get_value(self):
         """Get the current value of the watched file.
 
-        **Should be overwritten and implemented in child classes.**
+        .. attention::
+            This method should be overwritten and implemented in child classes.
 
-        Determines the current change value of the file being watched. This
-        could be the file's hash, the modified time, or some other value that
-        can be used to determine if we should update the `changed` status.
+        This method determines the current change value of the file being
+        watched. This could be the file's hash, the modified time, or some
+        other value that can be used to determine if we should report the file
+        as changed on the next call to :meth:`has_changed`.
 
         Returns:
             str: A value representing the current state of the object that this

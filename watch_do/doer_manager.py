@@ -1,4 +1,21 @@
-"""This class manages the doers and commands.
+"""The :class:`.DoerManager` class is responsible for orchestrating the doers.
+
+Commands for the different types of doers, for example the :class:`.Shell`
+doer, are provided to this class, which are then parsed and converted to their
+respective doer instances. The default doer is also taken into account for
+commands that don't explicitly specify a doer.
+
+As an example, the following code would parse out the command specified as the
+first argument and create a :class:`.Shell` doer from it.
+
+>>> manager = DoerManager(['shell:echo "%f changed!"'], Shell)
+
+In the above case, the ``shell:`` prefix wasn't necessary, as the default doer
+(the second argument) was already set to :class:`.Shell`.
+
+All of the doers can be run by calling the :meth:`.run_doers` method.
+
+>>> manager.run_doers('my_file.txt')
 """
 
 from importlib import import_module
@@ -7,20 +24,29 @@ from .exceptions import UnknownDoer
 
 
 class DoerManager:
-    """This class manages the doers and commands.
+    """This class creates and manages doers.
 
-    It is converts string commands to doer instances and then provides a simple
-    interface for running them and getting their output.
+    Commands are passed in, which then get parsed and converted to instances
+    of doers. All doers can be run using the :meth:`.run_doers` method with
+    relevant output returned.
     """
+
     def __init__(self, commands, default_doer):
-        """Initialise the `DoerManager`.
+        """Initialise the :class:`.DoerManager` and parse all commands.
+
+        The commands that get passed into this class are parsed (removing their
+        ``doer:`` prefix if required) and have the relevant doer instances
+        created for them.
 
         Parameters:
             commands (list): A list of strings containing the commands to
-                             create doers for.
-            default_doer (Doer): A reference to a doer class to use as the
-                                 default doer if one is not explicitly
-                                 specified.
+                create doers for. Each command (str) in the list of commands
+                should be prefixed with ``doer:``, where 'doer' is the name of
+                the doer (i.e.  ``shell``). If the command is not prefixed with
+                ``doer:`` the ``default_doer`` will be used.
+            default_doer (:class:`.Doer`): A reference to a doer class to use
+                as the default doer if one is not explicitly specified using
+                the ``doer:`` prefix.
         """
         self._commands = commands
         self._default_doer = default_doer
@@ -29,29 +55,22 @@ class DoerManager:
 
     @property
     def commands(self):
-        """Get the list of commands passed in to this instance.
-
-        Returns:
-            list: The list of commands passed in to this instance.
+        """list: The list of stings that this :class:`.DoerManager` is
+        managing.
         """
         return self._commands
 
     @property
     def default_doer(self):
-        """Get the default doer that should be used if `doer::` isn't found.
-
-        Returns:
-            Doer: The default doer that should be used if `doer::` isn't found.
+        """:class:`.Doer`: The doer that is used if one is explicitly specified
+        in the command.
         """
         return self._default_doer
 
     @property
     def doers(self):
-        """Get the doers that were created from of parsing the `commands`.
-
-        Return:
-            list: A list of doers that were created from of parsing the
-                  `commands`.
+        """list: The doers that were created as a result of passing the
+        commands.
         """
         return self._doers
 
@@ -60,11 +79,12 @@ class DoerManager:
 
         Parameters:
             commands (list): A list of strings containing the commands to
-                             parse.
+                 parse. See the :meth:`.__init__` documentation for details on
+                 the format of each command.
 
         Raises:
-            AttributeError: This method will raise an `AttributeError` if the
-                            given doer doesn't exist.
+            UnknownDoer: This method will raise an :meth:`.UnknownDoer` if the
+                 given doer doesn't exist.
 
         Returns:
             list: A list of doers that were created from the `commands`.
@@ -97,10 +117,11 @@ class DoerManager:
         return doers
 
     def run_doers(self, file_name):
-        """Run the doers and return their output.
+        """Run each doer in turn and return their output.
 
         Returns:
-            list: A list of strings that contain the output of the doers.
+            list: A list of strings that contain the combined output of stdout
+            and stderr from the doers.
         """
         results = []
         for doer in self.doers:
