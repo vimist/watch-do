@@ -1,8 +1,6 @@
 Watch Do (|release|)
 ====================
 
-Watch Do, watch files, do stuff.
-
 Watch Do is primarily a command line utility that allows you to monitor files
 for changes using a variety of different methods (:class:`.MD5` hash of the
 file, :class:`.ModificationTime`, etc) and then perform actions based on these
