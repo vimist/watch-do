@@ -26,7 +26,7 @@ setup(
     packages=['watch_do'],
     entry_points={
         'console_scripts': [
-            'watch-do=watch_do.cli:main'
+            'watch-do=watch_do.cli:watch_do'
         ]
     }
 )
