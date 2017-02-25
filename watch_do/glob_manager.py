@@ -16,7 +16,7 @@ method can be called:
 """
 
 import os
-import glob
+from pathlib import Path
 
 
 class GlobManager:
@@ -57,11 +57,11 @@ class GlobManager:
         """
         files = set()
         for glob_pattern in self.globs:
-            items = glob.glob(glob_pattern, recursive=True)
+            items = Path('.').glob(glob_pattern)
 
             for item in items:
-                if os.path.isfile(item):
-                    files.add(item)
+                if item.is_file():
+                    files.add(item.as_posix())
 
         self._last_files = files
         return files
