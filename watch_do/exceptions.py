@@ -6,12 +6,12 @@ only to provide a means to handle specific types of error.
 """
 
 
-class UnknownWatcher(ModuleNotFoundError):
+class UnknownWatcher(ImportError):
     """This can be raised when a :class:`.Watcher` cannot be found.
     """
     pass
 
-class UnknownDoer(ModuleNotFoundError):
+class UnknownDoer(ImportError):
     """This can be raised when a :class:`.Doer` cannot be found.
     """
     pass
