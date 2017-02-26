@@ -5,7 +5,7 @@ package_dir = watch_do
 docker_image = watch-do-build-environment
 
 # Define the base command to run another command inside our build environment
-define docker_run =
+define docker_run
 	docker run \
 	--rm \
 	--volume=$(PWD):/watch-do \
@@ -26,7 +26,7 @@ build-environment:
 .PHONY: run-build-environment
 run-build-environment: build-environment
 	@echo "Running build environment"
-	$(call docker_run, /bin/sh, -it)
+	@$(call docker_run, /bin/sh, -it)
 
 .PHONY: docs
 docs: build-environment
