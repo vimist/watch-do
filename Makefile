@@ -2,16 +2,16 @@ tests_dir = tests
 documentation_dir = docs
 package_dir = watch_do
 
-docker_image_name = watch-do-build-environment
+docker_image = watch-do-build-environment
 
 # Define the base command to run another command inside our build environment
 define docker_run =
 	docker run \
 	--rm \
 	--volume=$(PWD):/watch-do \
-	--name $(docker_image_name) \
+	--name $(docker_image)-$(shell hexdump -n 5 -e '"%02x"' /dev/urandom) \
 	$(2) \
-	$(docker_image_name) \
+	$(docker_image) \
 	$(1)
 endef
 
@@ -21,7 +21,7 @@ all: test lint docs
 .PHONY: build-environment
 build-environment:
 	@echo "Building environment"
-	@docker build --tag $(docker_image_name) .
+	@docker build --tag $(docker_image) .
 
 .PHONY: run-build-environment
 run-build-environment: build-environment
