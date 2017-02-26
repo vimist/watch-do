@@ -15,7 +15,6 @@ method can be called:
 >>> manager.get_files()
 """
 
-import os
 from pathlib import Path
 
 

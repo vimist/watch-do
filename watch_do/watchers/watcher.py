@@ -19,7 +19,7 @@ class Watcher(metaclass=ABCMeta):
     inherit from.
 
     A file name is passed in that will be monitored for changes.
-    
+
     .. note::
         The file state is only checked when the :meth:`has_changed` method is
         called.
