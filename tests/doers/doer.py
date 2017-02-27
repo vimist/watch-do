@@ -10,8 +10,11 @@ class FakeDoer(Doer):
     """A fake doer to test with as we can't directly instantiate the
     :class:`.Doer` class.
     """
-    def run(self):
+    def run(self, file_name):
         """Get the fixed return value of this fake doer.
+
+        Parameters:
+            file_name (str): The file name to run this doer against.
 
         Returns:
             str: Always returns 'Hello' (unless patched)

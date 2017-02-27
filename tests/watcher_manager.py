@@ -1,11 +1,7 @@
 """Test the `WatcherManager` class.
 """
 
-from unittest import TestCase
-import tempfile
-import os
-
-from tests.helper_functions import set_up_test_files
+from tests.helper_functions import TestCaseWithFakeFiles
 from tests.helper_functions import create_file
 from tests.helper_functions import remove_file
 
@@ -15,28 +11,15 @@ from watch_do.watchers import Watcher
 from watch_do.watchers.hash import MD5
 
 
-class TestWatcherManager(TestCase):
+class TestWatcherManager(TestCaseWithFakeFiles):
     """Test the `WatcherManager` class.
     """
     def setUp(self):
-        """Create some temporary files for the tests to work with.
-        """
-        self.temp_dir = tempfile.TemporaryDirectory()
-        set_up_test_files(self.temp_dir.name)
+        super(TestWatcherManager, self).setUp()
 
         self.glob_manager = GlobManager(['*'])
         self.watcher_manager = WatcherManager(
             MD5, self.glob_manager, True, True)
-
-        # Change to the temporary directory
-        self.cwd = os.getcwd()
-        os.chdir(self.temp_dir.name)
-
-    def tearDown(self):
-        """Remove the temporary directory and files.
-        """
-        self.temp_dir.cleanup()
-        os.chdir(self.cwd)
 
     def test___init__(self):
         """Check that all passed in properties are being stored correctly.

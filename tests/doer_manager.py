@@ -1,3 +1,6 @@
+"""Test the doer manager class.
+"""
+
 from unittest import TestCase
 
 from watch_do.doers import Shell
@@ -6,6 +9,8 @@ from watch_do.exceptions import UnknownDoer
 
 
 class TestDoerManager(TestCase):
+    """Test the doer manager class.
+    """
     def setUp(self):
         self.doer_manager = DoerManager(
             ['shell::echo "%f has changed."', 'shell::test', 'echo "Bye"'],
@@ -25,7 +30,7 @@ class TestDoerManager(TestCase):
         """
         self.assertIsInstance(self.doer_manager.doers[0], Shell)
         self.assertEqual(self.doer_manager.doers[0].command,
-                              'echo "%f has changed."')
+                         'echo "%f has changed."')
 
         self.assertIsInstance(self.doer_manager.doers[1], Shell)
         self.assertEqual(self.doer_manager.doers[1].command, 'test')

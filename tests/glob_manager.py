@@ -1,37 +1,14 @@
 """Test the `GlobManager` class.
 """
 
-import os
-import tempfile
-
-from unittest import TestCase
-
-from tests.helper_functions import set_up_test_files
+from tests.helper_functions import TestCaseWithFakeFiles
 
 from watch_do import GlobManager
 
 
-class TestGlobManager(TestCase):
+class TestGlobManager(TestCaseWithFakeFiles):
     """Test the `GlobManager` class.
     """
-
-    def setUp(self):
-        """Set up a few temporary directories with some files.
-        """
-        # Create a temporary directory with a few files in
-        self.temp_dir = tempfile.TemporaryDirectory()
-        set_up_test_files(self.temp_dir.name)
-
-        # Change to the temporary directory
-        self.cwd = os.getcwd()
-        os.chdir(self.temp_dir.name)
-
-    def tearDown(self):
-        """Clean up the temporary files used for testing.
-        """
-        self.temp_dir.cleanup()
-        os.chdir(self.cwd)
-
     def test_last_files(self):
         """Test that the `last_files` property is being correctly maintained.
         """

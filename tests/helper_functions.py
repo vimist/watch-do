@@ -3,7 +3,34 @@
 
 import os
 from os.path import join
+import tempfile
 
+from unittest import TestCase
+
+
+class TestCaseWithFakeFiles(TestCase):
+    """This class can be used when a basic set of files needs to be created
+    that can be used in the tests.
+    """
+    def setUp(self):
+        """Create some temporary files for the tests to work with.
+
+        We also switch to the temporary directory.
+        """
+        self.temp_dir = tempfile.TemporaryDirectory()
+        set_up_test_files(self.temp_dir.name)
+
+        # Change to the temporary directory
+        self.cwd = os.getcwd()
+        os.chdir(self.temp_dir.name)
+
+    def tearDown(self):
+        """Remove the temporary directory and files.
+
+        We also change back to the original working directory here too.
+        """
+        self.temp_dir.cleanup()
+        os.chdir(self.cwd)
 
 def create_file(file_name, content=''):
     """Create a file.
