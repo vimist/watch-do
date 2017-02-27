@@ -83,7 +83,7 @@ class Doer(metaclass=ABCMeta):
         specific file.
 
         Parameters:
-            file_name (str): The file name for which to run this doer against.
+            file_name (str): The file name to run this doer against.
 
         Returns:
             str: A string, containing the status/output of the action.
