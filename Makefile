@@ -56,7 +56,7 @@ lint-package: build-environment
 .PHONY: lint-tests
 lint-tests: build-environment
 	@echo "Linting the test code"
-	@$(call, docker_run, \
+	@$(call docker_run, \
 		pylint \
 			--reports no \
 			--disable protected-access \
