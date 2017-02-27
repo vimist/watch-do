@@ -33,6 +33,11 @@ docs: build-environment
 	@echo "Building documentation"
 	@$(call docker_run, $(MAKE) -C $(documentation_dir) html)
 
+.PHONY: serve-docs
+serve-docs: docs
+	@echo "Serving documentation on localhost:8080..."
+	@cd docs/_build/html && python3 -m http.server 8080
+
 .PHONY: test
 test: build-environment
 	@echo "Running tests"
