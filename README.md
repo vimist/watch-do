@@ -1,3 +1,7 @@
+Documentation build, test and linting for `master` branch:
+
+[![Build Status](https://travis-ci.org/vimist/watch-do.svg?branch=master)](https://travis-ci.org/vimist/watch-do)
+
 Watch Do
 ========
 
