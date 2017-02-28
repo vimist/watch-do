@@ -39,7 +39,7 @@ Documentation
 You can run the following command to find more information on the modules the
 Watch Do package provides:
 
-.. code-block:: bash
-
-   make serve-docs
+```sh
+make serve-docs
+```
 
