@@ -2,8 +2,8 @@ Watch Do (|release|)
 ====================
 
 Watch Do is primarily a command line utility that allows you to monitor files
-for changes using a variety of different methods (:ref:`.MD5` hash of the
-file, :ref:`.ModificationTime`, etc) and then perform actions based on these
+for changes using a variety of different methods (:class:`.MD5` hash of the
+file, :class:`.ModificationTime`, etc) and then perform actions based on these
 changes.
 
 The core Watch Do libraries can be used externally from the command line
@@ -24,7 +24,7 @@ Basic Usage
 
 You can start making use of Watch Do right away! A basic Watch Do command can
 be seen below, this watches all ``.py`` files recursively using the default
-watcher (:ref:`.ModificationTime`) and then runs ``make test`` in the
+watcher (:class:`.ModificationTime`) and then runs ``make test`` in the
 directory that Watch Do was launched in.
 
 .. code-block:: bash
