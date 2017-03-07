@@ -57,32 +57,17 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
-# Read in basic package details from setup.py
-with open('../setup.py', 'r') as setup_file_handle:
-    setup_file = setup_file_handle.read()
-
-package_details = re.search(
-    r'setup\(.+?'
-    r'version=("|\x27)(?P<version>.+?)\1,.+?'
-    r'author=("|\x27)(?P<author>.+?)\3,.+?'
-    r'description=("|\x27)(?P<description>.+?)\3,.+?'
-    r'\)',
-    setup_file,
-    re.DOTALL
-).groupdict()
-
 # General information about the project.
 project = 'Watch Do'
-copyright = '{}, {}'.format(datetime.datetime.now().year,
-                            package_details['author'])
-author = package_details['author']
+copyright = '{}, {}'.format(datetime.datetime.now().year, 'Vimist')
+author = 'Vimist'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = package_details['version']
+version = '1.0.0'
 # The full version, including alpha/beta/rc tags.
 release = version
 
