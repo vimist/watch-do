@@ -23,7 +23,7 @@ setup(
         'Topic :: Software Development',
         'Topic :: System'
     ],
-    packages=['watch_do'],
+    packages=['watch_do', 'watch_do.doers', 'watch_do.watchers'],
     entry_points={
         'console_scripts': [
             'watch-do=watch_do.cli:watch_do'
