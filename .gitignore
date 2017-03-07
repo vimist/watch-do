@@ -1,10 +1,4 @@
-# Editor
-*.swp
-
-# Python
 __pycache__
 *.pyc
+*.swp
 *.egg-info
-
-# Documentation
-docs/_build
