@@ -1,15 +1,8 @@
-"""Watch Do
-
-A set of classes (and more specifically a command line tool that implements
-these classes) that performs change detection in files and performs an action
-as a result.
-"""
-
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='watch-do',
-    version='1.0.0',
+    version='0.1.0',
     author='Vimist',
     description='Watch a group of files for changes and then run commands',
     url='https://github.com/vimist/watch-do',
@@ -23,10 +16,10 @@ setup(
         'Topic :: Software Development',
         'Topic :: System'
     ],
-    packages=['watch_do'],
+    packages=find_packages(exclude=['tests*']),
     entry_points={
         'console_scripts': [
-            'watch-do=watch_do.cli:watch_do'
+            'watch-do=watch_do.cli_entry_point:main'
         ]
     }
 )

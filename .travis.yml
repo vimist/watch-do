@@ -1,11 +1,6 @@
 language: python
 python:
+  - "3.3"
   - "3.4"
-sudo: required
-services:
-  - docker
-script:
-  - make docs
-  - make test
-  - make lint-package
-  - make lint-tests
+  - "3.5"
+script: ./tests/run_tests.py
