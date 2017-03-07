@@ -1,105 +1,49 @@
-[![Build Status](https://travis-ci.org/vimist/watch-do.svg?branch=master)](https://travis-ci.org/vimist/watch-do)
-[![Code Climate](https://codeclimate.com/github/vimist/watch-do/badges/gpa.svg)](https://codeclimate.com/github/vimist/watch-do)
+Documentation build, test and linting for `master` branch:
 
-WatchDo
-=======
-A command line tool to watch files and run arbitrary commands when they
-change.
+[![Build Status](https://travis-ci.org/vimist/watch-do.svg?branch=master)](https://travis-ci.org/vimist/watch-do)
+
+Watch Do
+========
+
+Watch Do is primarily a command line utility that allows you to monitor files
+for changes and then perform actions based on these changes.
 
 Installation
 ------------
-Can be installed using the following commands:
 
-```bash
-$ git clone https://github.com/vimist/watch-do.git ./watch-do
-$ cd ./watch-do
-$ sudo pip install .
+To install Watch Do, ensure you have pip installed using your distributions
+package manager and then run the following command:
+
+```sh
+pip install git+https://github.com/vimist/watch-do
 ```
 
-Usage
------
-Run unit tests for your project whenever a change in any `.py` file is
-detected (using the default hash based method):
+Basic Usage
+-----------
 
-```bash
-$ watch-do -w '**/*.py' -c './tests/run_tests.py'
+You can start making use of Watch Do right away! A basic Watch Do command can
+be seen below, this watches all `.py` files recursively using the default
+watcher (`ModificationTime`) and then runs `make test` in the directory that
+Watch Do was launched in.
+
+```sh
+watch-do -w '**/*.py' -d 'make test'
 ```
 
-    Watching 16 files for changes
+Run `watch-do --help` for more information on what all of the different
+command line switches do.
 
-    ...................
-    -------------------------------------------------------------------
-    Ran 19 tests in 0.018s
+**Note:**
+The `-r` (`--reglob`) switch is often useful to maintain an up-to-date list of
+files that trigger the doers to run.
 
-    OK
+Documentation
+-------------
 
+You can run the following command to find more information on the modules the
+Watch Do package provides:
 
-    Triggered from change in "tests/watch_do/methods/test_mtime.py" at
-    12:03:08
-    Took 0.227 seconds to run command
-
-Extensible
-----------
-You define what constitutes a changed file. Just add a new file in
-`./watch_do/methods`:
-
-```bash
-$ touch './watch_do/methods/mtime.py'
+```sh
+make serve-docs
 ```
 
-Create a class with the title cased version of the file name and
-implement your detection method (must be called `_detect`):
-
-```python
-import os
-
-from watch_do.methods.base_method import BaseMethod
-
-
-class Mtime(BaseMethod):
-    def _detect(self):
-        """
-        Detects a change in a file by it's modification time
-        """
-        mtime = False
-        try:
-            mtime = os.stat(self.file_name).st_mtime
-        except FileNotFoundError:
-            return False
-
-        return mtime
-```
-
-Create your tests in `./tests/watch_do/methods/test_mtime.py`:
-
-```python
-import unittest
-from unittest.mock import Mock, patch
-
-from watch_do.methods.mtime import Mtime
-
-
-class TestMtime(unittest.TestCase):
-    @patch('os.stat')
-    def setUp(self, os_stat):
-        os_stat.return_value = Mock(st_mtime=123.456)
-
-        self.mtime = Mtime('file_name')
-
-    def test_initial_detect(self):
-        self.assertEqual(
-            self.mtime._detect_value, 123.456, 'invalid _detect_value')
-
-    def test_detect(self):
-        with patch('os.stat') as os_stat:
-            os_stat.return_value = Mock(st_mtime=456.789)
-
-            self.assertNotEqual(
-                self.mtime._detect_value, self.mtime._detect(),
-                'content change not detected')
-
-        self.assertFalse(
-            self.mtime._detect(), 'non existant file not detected')
-```
-
-Now you can use it by specifying the `-m mtime` on the command line!
