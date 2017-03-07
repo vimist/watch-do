@@ -111,7 +111,7 @@ html_sidebars = {
 }
 
 html_theme_options = {
-    'description': package_details['description'],
+    'description': 'Watch a group of files for changes and then run commands',
     'github_user': 'vimist',
     'github_repo': 'watch-do',
     'github_button': True,
