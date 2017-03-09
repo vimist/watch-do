@@ -15,6 +15,7 @@ method can be called:
 >>> manager.get_files()
 """
 
+import os
 from pathlib import Path
 
 
@@ -56,7 +57,14 @@ class GlobManager:
         """
         files = set()
         for glob_pattern in self.globs:
-            items = Path('.').glob(glob_pattern)
+            # If the path is absolute, convert it to a relative one.
+            # This is because Path().glob only takes relative globs.
+            if os.path.isabs(glob_pattern):
+                glob_pattern = os.path.relpath(glob_pattern)
+
+            # This can be changed for glob.glob when Python3.5 is more widely
+            # used, so we can do recursive globbing
+            items = Path().glob(glob_pattern)
 
             for item in items:
                 if item.is_file():
