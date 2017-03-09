@@ -8,3 +8,6 @@ __pycache__
 
 # Documentation
 docs/_build
+
+# Test Coverage
+.coverage

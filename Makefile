@@ -8,8 +8,9 @@ docker_image = watch-do-build-environment
 define docker_run
 	docker run \
 	--rm \
-	--volume=$(PWD):/watch-do \
-	--name $(docker_image)-$(shell hexdump -n 5 -e '"%02x"' /dev/urandom) \
+	--volume "$(PWD)":"$(PWD)" \
+	--name "$(docker_image)-$(shell hexdump -n 5 -e '"%02x"' /dev/urandom)" \
+	--workdir "$(PWD)" \
 	$(2) \
 	$(docker_image) \
 	$(1)
@@ -42,7 +43,8 @@ serve-docs: docs
 test: build-environment
 	@echo "Running tests"
 	@$(call docker_run, \
-		python3 \
+		coverage run \
+			--include 'watch_do/*' \
 			-m unittest discover \
 			--start-directory $(tests_dir) \
 			--pattern '*.py')

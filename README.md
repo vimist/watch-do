@@ -1,6 +1,8 @@
 Documentation build, test and linting for `master` branch:
 
 [![Build Status](https://travis-ci.org/vimist/watch-do.svg?branch=master)](https://travis-ci.org/vimist/watch-do)
+[![Test Coverage](https://lima.codeclimate.com/github/vimist/watch-do/badges/coverage.svg)](https://lima.codeclimate.com/github/vimist/watch-do/coverage)
+[![Code Climate](https://lima.codeclimate.com/github/vimist/watch-do/badges/gpa.svg)](https://lima.codeclimate.com/github/vimist/watch-do)
 
 Watch Do
 ========
