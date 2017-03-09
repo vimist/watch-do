@@ -1,6 +1,8 @@
 """Test the `GlobManager` class.
 """
 
+import os
+
 from tests.helper_functions import TestCaseWithFakeFiles
 
 from watch_do import GlobManager
@@ -69,3 +71,8 @@ class TestGlobManager(TestCaseWithFakeFiles):
 
         glob_manager = GlobManager(['bob.py', 'bob.py'])
         self.assertCountEqual(glob_manager.get_files(), {'bob.py'})
+
+        glob_manager = GlobManager(
+            [os.path.join(self.temp_dir.name, file_name) for file_name in [
+                'bob.py', 'geoff.py']])
+        self.assertCountEqual(glob_manager.get_files(), {'bob.py', 'geoff.py'})
