@@ -117,14 +117,11 @@ class DoerManager:
         return doers
 
     def run_doers(self, file_name):
-        """Run each doer in turn and return their output.
+        """Run each doer in turn and yield its output.
 
-        Returns:
-            list: A list of strings that contain the combined output of stdout
-            and stderr from the doers.
+        Yields:
+            str: A string that contains the combined output of stdout and
+                stderr from the doers.
         """
-        results = []
         for doer in self.doers:
-            results.append(doer.run(file_name))
-
-        return results
+            yield from doer.run(file_name)

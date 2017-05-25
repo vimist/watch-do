@@ -85,7 +85,8 @@ class Doer(metaclass=ABCMeta):
         Parameters:
             file_name (str): The file name to run this doer against.
 
-        Returns:
-            str: A string, containing the status/output of the action.
+        Yields:
+            str: A string containing the output (possibly the partial output)
+                of the command, both stdout and stderr.
         """
         pass

@@ -45,9 +45,9 @@ class TestDoerManager(TestCase):
         """Check that the doers are being run successfully.
         """
         self.assertEqual(
-            self.doer_manager.run_doers('/some/random/file'),
+            list(self.doer_manager.run_doers('/some/random/file')),
             [
                 '/some/random/file has changed.\n',
-                '\nCommand failed to run, exited with error code 1',
+                'Command failed to run, exited with error code 1',
                 'Bye\n'
             ])

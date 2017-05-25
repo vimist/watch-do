@@ -35,20 +35,21 @@ class Shell(Doer):
             file_name (str): The ``file_name`` that this doer should run
                 against.
 
-        Returns:
-            str: A string containing the output of the command, both stdout and
-                 stderr.
+        Yields:
+            str: A string containing the output (possibly the partial output)
+                of the command, both stdout and stderr.
         """
         command = Doer._interpolate_file_name(self.command, file_name)
 
-        try:
-            output = subprocess.check_output(
-                command, stderr=subprocess.STDOUT, shell=True)
-        except subprocess.CalledProcessError as ex:
-            output = (
-                ex.output +
-                b'\nCommand failed to run, exited with error code ' +
-                bytes(str(ex.returncode), 'utf-8')
-            )
+        with subprocess.Popen(command, stdout=subprocess.PIPE,
+                              stderr=subprocess.STDOUT, bufsize=1,
+                              shell=True) as process:
+            for line in process.stdout:
+                yield line.decode('UTF-8')
 
-        return output.decode('utf-8')
+            process.wait()
+
+            # If the command returned a non 0 exit code, yield an error message
+            if process.returncode > 0:
+                yield ('Command failed to run, exited with error code {}'
+                       .format(process.returncode))

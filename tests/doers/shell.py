@@ -21,15 +21,15 @@ class TestShell(TestCase):
         """
         shell = Shell('echo -n "This file changed: %f"')
         self.assertEqual(
-            shell.run('/some/random/file'),
-            'This file changed: /some/random/file')
+            list(shell.run('/some/random/file')),
+            ['This file changed: /some/random/file'])
 
         shell = Shell('echo -n "Hello "; echo -n "World" >&2; echo -n "...";')
         self.assertEqual(
-            shell.run(''),
-            'Hello World...')
+            list(shell.run('')),
+            ['Hello World...'])
 
         shell = Shell('echo -n "Hello"; exit 1')
         self.assertEqual(
-            shell.run(''),
-            'Hello\nCommand failed to run, exited with error code 1')
+            list(shell.run('')),
+            ['Hello', 'Command failed to run, exited with error code 1'])
