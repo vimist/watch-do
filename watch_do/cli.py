@@ -230,7 +230,7 @@ def watch_do():
                 start_time = time.time()
                 for file_name in changed_files:
                     for output in doer_manager.run_doers(file_name):
-                        print(output)
+                        print(output, end='')
 
                     if not args.multi:
                         break
