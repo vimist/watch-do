@@ -4,6 +4,7 @@ The command line entry points into the program.
 """
 
 import os
+import sys
 import time
 import argparse
 
@@ -231,6 +232,7 @@ def watch_do():
                 for file_name in changed_files:
                     for output in doer_manager.run_doers(file_name):
                         print(output, end='')
+                        sys.stdout.flush()
 
                     if not args.multi:
                         break
