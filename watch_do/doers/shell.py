@@ -42,10 +42,10 @@ class Shell(Doer):
         command = Doer._interpolate_file_name(self.command, file_name)
 
         with subprocess.Popen(command, stdout=subprocess.PIPE,
-                              stderr=subprocess.STDOUT, bufsize=1,
-                              shell=True) as process:
+                              stderr=subprocess.STDOUT, encoding='UTF-8',
+                              bufsize=1, shell=True) as process:
             for line in process.stdout:
-                yield line.decode('UTF-8')
+                yield line
 
             process.wait()
 
