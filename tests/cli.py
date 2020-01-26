@@ -12,28 +12,24 @@ from watch_do.cli import clear_screen
 class TestBaseClass:
     """A temporary top level class for testing.
     """
-    pass
 
 
 # pylint: disable=too-few-public-methods
 class TestClassA(TestBaseClass):
     """A temporary sub class for testing.
     """
-    pass
 
 
 # pylint: disable=too-few-public-methods
 class TestClassB(TestBaseClass):
     """A temporary sub class for testing.
     """
-    pass
 
 
 # pylint: disable=too-few-public-methods
 class TestClassC:
     """A temporary sub class for testing.
     """
-    pass
 
 
 # pylint: disable=too-few-public-methods
@@ -75,4 +71,3 @@ class TestCLI(TestCase):
         that already have tests written for them; it also doesn't have a return
         value.
         """
-        pass

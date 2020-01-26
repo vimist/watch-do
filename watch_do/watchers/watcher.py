@@ -55,7 +55,7 @@ class Watcher(metaclass=ABCMeta):
         """
         value = self._get_value()
 
-        changed = True if value != self._last_value else False
+        changed = value != self._last_value
 
         self._last_value = value
 
@@ -82,4 +82,3 @@ class Watcher(metaclass=ABCMeta):
             str: A value representing the current state of the object that this
             base class can use to determine if the file has changed.
         """
-        pass

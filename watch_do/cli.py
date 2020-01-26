@@ -165,7 +165,7 @@ def get_cli_argument_parser(watcher_class_names, doer_class_names):
 # Locally disabling some Pylint features. Ideally this wouldn't have to be
 # done; however, I don't feel that there is much that would logically live
 # elsewhere.
-# pylint: disable=too-many-locals,too-many-branches
+# pylint: disable=R0914,R1702,R0912,R0915
 def watch_do():
     """The main entry point into the Watch Do command line program.
 
@@ -216,7 +216,7 @@ def watch_do():
                     glob_manager.last_files, watcher), end='')
 
             # If some files have changed
-            if len(changed_files) > 0:
+            if changed_files:
                 trigger_time = time.time()
                 time.sleep(args.wait_time)
 

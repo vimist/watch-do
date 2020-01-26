@@ -89,4 +89,3 @@ class Doer(metaclass=ABCMeta):
             str: A string containing the output (possibly the partial output)
                 of the command, both stdout and stderr.
         """
-        pass

@@ -39,4 +39,3 @@ class TestShell(TestCase):
         self.assertEqual(
             list(shell.run('')),
             ['Hello', 'Command failed to run, exited with error code 1'])
-

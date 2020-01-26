@@ -26,7 +26,7 @@ class MD5(Watcher):
 
         with open(self.file_name, 'rb') as file_handle:
             chunk = file_handle.read(4096)
-            while len(chunk):
+            while chunk:
                 md5_hash.update(chunk)
                 chunk = file_handle.read(4096)
 
