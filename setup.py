@@ -9,7 +9,7 @@ from setuptools import setup
 
 setup(
     name='watch-do',
-    version='1.1.1',
+    version='1.1.2',
     author='Vimist',
     description='Watch a group of files for changes and then run commands',
     url='https://github.com/vimist/watch-do',
