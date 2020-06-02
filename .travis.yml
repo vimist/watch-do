@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.4"
+  - '3.5'
 sudo: required
 services:
   - docker
@@ -13,3 +13,20 @@ script:
   - make lint-tests
 after_success:
   - codeclimate-test-reporter
+deploy:
+  provider: pypi
+  user: __token__
+  password:
+    secure: >
+      OBqvYC2wMZWlyyFhLVnhn3jbuTj5P2YwDOaKooRtisc1hfsnhU5uAN+llQQ0l37OOAzAItU+6
+      DbXO8x7/7QCpg8l3S2J47z9Ag/CfrFxfRI+DzosbpJMQF51nIiODVu5iW12oLGXtzA5Bcai07
+      cy2E5g6DonGQIBGeU7vfhbRxk0wv1NUq1za5ei6gqn0Y6sOArNupZCGQ/u1YuXpV4AgTslyUo
+      CQLE0NVlNIwI5A0Ysmr+fHbC1Wq3rdiFdtDj/6uVuW+/dWeSIcKarzXBy05LJmi+HMkB+sh3H
+      m4bUj6dfg+kVf4CMYPyJlUD+E9o3TqiZzCLjdxdsHe8jd1DGyNYOvLPSvvJvWmAYAL5m8YW+Y
+      JlaoE7jdNzCgviH92GlbFBNCcdESHe8mB1JFv65jGxB5ZGO35ETLWt/eEA89bdfJE/X97fwmz
+      ELevGYEH38zm3GEGRhICW3UM0U92fUCEhbSWKSUhly8M6RqKYRU/suSb2YlcA3W0rmBHK5Gtr
+      WxQHLi+2hJ7h+ZhMN1E7S6KEFn+RFW85rtOAa/3SCfiSZ2AUOWaZDj1RoM/v2Rq+/VJd0Q3jo
+      4YvBa3kfDiouBTA2DKWduGiBWsvClDIZQQ7GSpbnHF15qfd818bSYbuExZDJUrwIRDIsCOeI7
+      bV4Y4+Jl8y/q3CFOLZMkzZPXwo=
+  on:
+    tags: true

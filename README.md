@@ -17,7 +17,7 @@ To install Watch Do, ensure you have pip installed using your distributions
 package manager and then run the following command:
 
 ```sh
-pip install git+https://github.com/vimist/watch-do
+pip install watch-do
 ```
 
 Basic Usage
